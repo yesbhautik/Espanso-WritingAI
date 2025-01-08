@@ -1,0 +1,45 @@
+matches:
+  - trigger: "\x11"
+    replace: "{{output}}"
+    vars:
+      - name: clipb
+        type: clipboard
+      - name: output
+        type: script
+        params:
+          args:
+            - powershell
+            - -c
+            - |
+              # Define the headers
+              $headers = @{
+                  "Authorization" = "Bearer YOUR_API_KEY"
+                  "Content-Type" = "application/json"
+              }
+
+              # Retrieve the content from the environment variable
+              $userContent = '{{clipb}}'
+
+              # Define the body of the request
+              $body = @{
+                  "messages" = @(
+                      @{
+                          "role" = "system"
+                          "content" = "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English professional words and sentences (Do not use very hard to understand language, make it easy to understand). Keep the meaning same, but make them more literary. Add emoji where only required, if not required anywhere then just do not add it. Try to keep tone little bit ZEN-G / morden (yes, little bit). Note & warning: I want you to only reply the correction, the improvements and nothing else, do not write explanations. Just respond the replacement of my input, nothing else"
+                      },
+                      @{
+                          "role" = "user"
+                          "content" = $userContent
+                      }
+                  )
+                  "model" = "llama-3.3-70b-versatile"
+              }
+
+              # Convert the body to JSON format
+              $jsonBody = $body | ConvertTo-Json -Depth 4
+
+              # Make the POST request
+              $response = Invoke-RestMethod -Uri "https://api.groq.com/openai/v1/chat/completions" -Method Post -Headers $headers -Body $jsonBody
+
+              # Output the main content
+              Write-Output $response.choices[0].message.content
