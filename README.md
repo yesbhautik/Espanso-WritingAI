@@ -27,7 +27,7 @@ Coming Soon
 
 ## After Installation
 
-- Go to [Groq](https://console.groq.com/keys) and create an API key.
+- Go to [Groq consol](https://console.groq.com/keys) and create an API key.
 - Open the package.yml file and replace YOUR_API_KEY with your own Groq API key.
 - [Optional] Open the package.yml file and replace the trigger key with your own [trigger key](https://ss64.com/ascii.html). Default is `\x11` (Ctrl+Q).
 - [Optional] Open the package.yml file and replace the model whichever you want to use [Groq LLM Models](https://console.groq.com/docs/models). Default is `llama-3.3-70b-versatile`.
@@ -50,16 +50,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Author
-
-**Bhautik Bavadiya**
-
-- GitHub: [@yesbhautik](https://github.com/yesbhautik)
-
-## Version
-
-Current version: 0.1.0
 
 ## Support
 
